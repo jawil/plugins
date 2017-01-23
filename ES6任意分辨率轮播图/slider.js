@@ -257,7 +257,7 @@
             }
         }
     }
-    //静态方法,运动框架的封装
+    //静态方法,运动框架的封装,高级浏览器或者移动端可以用transform:translate3D(x,y,z)来代替
     Slider.doMove = function(obj, json, times, fx, fn) {
         let iCur = {};
         let getStyle = (obj, attr) => obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, false)[attr];
