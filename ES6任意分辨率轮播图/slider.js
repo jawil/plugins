@@ -137,7 +137,6 @@
             }
             //设置图片的分辨率
         setImgStyle() {
-                let self = this;
                 let oImg = this.sliderContent.querySelectorAll('img');
                 let oImgArr = Array.from(oImg);
                 let imgLoaded = (item) => {
