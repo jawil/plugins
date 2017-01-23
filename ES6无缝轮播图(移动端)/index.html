@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ES6移动端无缝轮播图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #sliderWrap {
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        font-size: 0;
+        overflow: hidden;
+    }
+
+    #sliderWrap .slider-content {
+        width: 500%;
+        height: 100%;
+        transition: 0.5s;
+        margin: 0;
+        padding: 0;
+    }
+
+    #sliderWrap .slider-content li {
+        width: 20%;
+        height: 100%;
+        list-style: none;
+        display: inline-block;
+    }
+
+    #sliderWrap .slider-content li img {
+        width: 100%;
+        height: 100%;
+        vertical-align: top;
+    }
+
+    #sliderWrap .slider-flag {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        bottom: 8%;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+    }
+
+    #sliderWrap .slider-flag li {
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+        background-color: green;
+        display: inline-block;
+        margin: 0 4px;
+    }
+
+    #sliderWrap .slider-flag li.active {
+        background-color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="sliderWrap">
+        <ul class="slider-content">
+            <li>
+                <a href="javascript:void (0)">
+                    <img src="http://qiniu.xiaochedong.com/prod/banner/r30.jpg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void (0)">
+                    <img src="http://qiniu.xiaochedong.com/prod/tpl/22/main.png" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void (0)">
+                    <img src="http://qiniu.xiaochedong.com/prod/tpl/16/main.png" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void (0)">
+                    <img src="http://qiniu.xiaochedong.com/prod/tpl/20/main.png" alt="">
+                </a>
+            </li>
+        </ul>
+        <ul class="slider-flag">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="slider.js"></script>
+</body>
+
+</html>

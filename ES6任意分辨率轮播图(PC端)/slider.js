@@ -28,10 +28,41 @@
                 this.settings = Object.assign({}, DEFAULT_OPTIONS, json);
                 this.init();
             }
+            //静态方法,运动框架的封装,高级浏览器或者移动端可以用transform:translate3D(x,y,z)来代替
+        static doMove(obj, json, times, fx, fn) {
+                let iCur = {};
+                let getStyle = (obj, attr) => obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, false)[attr];
+                for (let attr in json) {
+                    iCur[attr] = 0;
+                    iCur[attr] = attr == 'opacity' ? Math.round(getStyle(obj, attr) * 100) : parseInt(getStyle(obj, attr));
+                }
+                let startTime = Date.now();
+                clearInterval(obj.timer);
+                obj.timer = setInterval(() => {
+                    let changeTime = Date.now();
+                    let t = times - Math.max(0, startTime - changeTime + times);
+                    /*0到2000*/
+                    for (let attr in json) {
+                        let value = TWEEN[fx](t, iCur[attr], json[attr] - iCur[attr], times);
+                        if (attr == 'opacity') {
+                            obj.style.opacity = value / 100;
+                            obj.style.filter = `alpha(opacity=${value})`;
+                        } else {
+                            obj.style[attr] = `${value}px`;
+                        }
+                    }
+                    if (t == times) {
+                        clearInterval(obj.timer);
+                        if (fn) {
+                            fn.call(obj);
+                        }
+                    }
+                }, 13);
+            }
             //初始化
         init() {
                 this.setCssStyle();
-                this.settings.auto == 1 ? this.autoPlay() : '';
+                this.settings.auto == 1 && this.autoPlay();
                 this.eventType();
                 this.nextClick();
             }
@@ -256,37 +287,6 @@
                 }
             }
         }
-    }
-    //静态方法,运动框架的封装,高级浏览器或者移动端可以用transform:translate3D(x,y,z)来代替
-    Slider.doMove = function(obj, json, times, fx, fn) {
-        let iCur = {};
-        let getStyle = (obj, attr) => obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, false)[attr];
-        for (let attr in json) {
-            iCur[attr] = 0;
-            iCur[attr] = attr == 'opacity' ? Math.round(getStyle(obj, attr) * 100) : parseInt(getStyle(obj, attr));
-        }
-        let startTime = Date.now();
-        clearInterval(obj.timer);
-        obj.timer = setInterval(() => {
-            let changeTime = Date.now();
-            let t = times - Math.max(0, startTime - changeTime + times);
-            /*0到2000*/
-            for (let attr in json) {
-                let value = TWEEN[fx](t, iCur[attr], json[attr] - iCur[attr], times);
-                if (attr == 'opacity') {
-                    obj.style.opacity = value / 100;
-                    obj.style.filter = `alpha(opacity=${value})`;
-                } else {
-                    obj.style[attr] = `${value}px`;
-                }
-            }
-            if (t == times) {
-                clearInterval(obj.timer);
-                if (fn) {
-                    fn.call(obj);
-                }
-            }
-        }, 13);
     }
     window.Slider = Slider;
 }(window);
